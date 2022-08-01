@@ -4,7 +4,8 @@ const fetch = require("fetch").fetchUrl
 console.log("starting miner")
 
 const path = "https://iceportal.de/api1/rs/status"
-
+const trip = "https://iceportal.de/api1/rs/tripInfo/trip"
+const bap = "https://iceportal.de/bap/api/bap-service-status"
 
 function oneRound() {
 	fetch(path, (err, meta, body) => {
@@ -17,37 +18,38 @@ function oneRound() {
 	})
 }
 
-roundCount = 1
+function tripFunc() {
+	fetch(trip, (err, meta, body) => {
+		if(err) {
+			console.log(err)
+			return
+		}
 
-// --- oneRound() --- //
-if ( process.argv[2] ) {
-	if ( process.argv[2] == "ever" ) {
-		roundCount = -1
-	} else {
-		roundCount = process.argv[2]
-	}
+		fs.writeFileSync(`trip/${Math.floor(Date.now()/1000)}.json`, body.toString())
+	})
 }
 
-thePath = ""
-if ( process.argv[3] ) {
-	thePath = process.argv[3]
+function bapFunc() {
+	fetch(bap, (err, meta, body) => {
+		if(err) {
+			console.log(err)
+			return
+		}
+
+		fs.writeFileSync(`bap/${Math.floor(Date.now()/1000)}.json`, body.toString())
+	})
 }
 
-let rt = 3600000 // roundTime NOT russia today!
+setInterval(_=>{
+	console.log(`Doing round`)
+	oneRound()
+}, 500)
+setInterval(_=>{
+	console.log("trip round")
+	tripFunc()
+}, 10000)
+setInterval(_=>{
+	console.log("bap round")
+	bapFunc()
+}, 10000)
 
-if (roundCount > 0) {
-// register rounds:
-for( let i = 0 ; i < roundCount ; i++ ) {
-	console.log(`Scheduling donwload #${i+1} of ${roundCount} in ${i * rt}ms`)
-	setTimeout(()=>{
-		console.log(`Doing round ${i+1}/${roundCount}`)
-		oneRound()
-	}, i * rt)
-}
-} else {
-	setInterval(_=>{
-		console.log(`Doing round`)
-		oneRound()
-	}, 500)
-	
-}
