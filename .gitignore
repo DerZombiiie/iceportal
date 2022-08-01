@@ -1,3 +1,10 @@
 data/*
 !data/.gitkeep
+bap/*
+!bap/.gitkeep
+trip/*
+!trip/.gitkeep
+
+data.2/*
+
 node_modules/*
