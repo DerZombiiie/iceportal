@@ -5,6 +5,4 @@ bap/*
 trip/*
 !trip/.gitkeep
 
-data.2/*
-
 node_modules/*
