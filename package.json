@@ -1,14 +1,31 @@
 {
   "name": "iceportal",
   "version": "1.0.0",
-  "description": "",
-  "main": "mine.internal.js",
+  "description": "A miner for the deutschebahn iceportal.de APIs",
+  "main": "mine.js",
+  "dependencies": {
+    "biskviit": "^1.0.1",
+    "fetch": "^1.1.0",
+    "encoding": "^0.1.12",
+    "iconv-lite": "^0.4.24",
+    "psl": "^1.9.0",
+    "safer-buffer": "^2.1.2"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "fetch": "^1.1.0"
-  }
+  "repository": {
+    "type": "git",
+    "url": "github.com/DerZombiiie/iceportal"
+  },
+  "keywords": [
+    "ice",
+    "deutschebahn",
+    "mining",
+    "api",
+    "node"
+  ],
+  "author": "Riley",
+  "license": "MIT"
 }
